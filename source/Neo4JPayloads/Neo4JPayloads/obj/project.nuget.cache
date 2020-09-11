@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "SaI2J5n5MnJCyh+/lEi6/4BikGA7Vheb1utKhyDInA/DbbwCFSbG0TpmLb70heNA/uVDzn7JsxfuyHv0lSvdzA==",
+  "success": true,
+  "projectFilePath": "C:\\source\\faculdade\\Trabalho-INF325\\source\\Neo4JPayloads\\Neo4JPayloads\\Neo4JPayloads.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Mateus\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
