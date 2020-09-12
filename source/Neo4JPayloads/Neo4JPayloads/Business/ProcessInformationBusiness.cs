@@ -10,18 +10,26 @@ namespace Neo4JPayloads.Business
 {
     public class ProcessInformationBusiness
     {
-        private const int CountData = 100;
+        private const int LimitData = 100;
 
         private const string PathProducts = @"C:\scripts\olist_products_dataset.json";
         private const string PathOrderItems = @"C:\scripts\olist_order_items_dataset.json";
+        private const string PathOrders = @"C:\scripts\olist_orders_dataset.json";
+        private const string PathCustomers = @"C:\scripts\olist_customers_dataset.json";
         private const string PathSeller = @"C:\scripts\olist_sellers_dataset.json";
 
         public void Starter()
         {
-            var products = GetDataJson<Product>(PathProducts).Take(CountData).ToList();
+            var orders = GetDataJson<Order>(PathOrders).Take(LimitData).ToList();
+            var orderIds = orders.Select(x => x.order_id);
+            var customerIds = orders.Select(x => x.customer_id);
 
-            var productIds = products.Select(x => x.product_id);
-            var orderItems = GetDataJson<OrderItem>(PathOrderItems).Where(x => productIds.Contains(x.product_id)).ToList();
+            var customers = GetDataJson<Customer>(PathCustomers).Where(x => customerIds.Contains(x.customer_id)).ToList();
+
+            var orderItems = GetDataJson<OrderItem>(PathOrderItems).Where(x => orderIds.Contains(x.order_id)).ToList();
+            var productsIds = orderItems.Select(x => x.product_id).ToList();
+
+            var products = GetDataJson<Product>(PathProducts).Where(x => productsIds.Contains(x.product_id)).ToList();
 
             var sellerIds = orderItems.Select(x => x.seller_id);
             var regions = GetDataJson<Region>(PathSeller)
@@ -34,14 +42,20 @@ namespace Neo4JPayloads.Business
                     seller_id = x.Key.seller_id
                 })
                 .ToList();
-            
-            foreach (var order in orderItems)
+
+            foreach (var orderItem in orderItems)
             {
-                order.product = products.FirstOrDefault(x => x.product_id == order.product_id);
-                order.seller = regions.FirstOrDefault(x => x.seller_id == order.seller_id);
+                orderItem.product = products.FirstOrDefault(x => x.product_id == orderItem.product_id);
+                orderItem.seller = regions.FirstOrDefault(x => x.seller_id == orderItem.seller_id);
             }
 
-            var finalJson = JsonConvert.SerializeObject(orderItems);
+            foreach (var order in orders)
+            {
+                order.Customer = customers.FirstOrDefault(x => x.customer_id == order.customer_id);
+                order.OrderItems = orderItems.Where(x => x.order_id == order.order_id);
+            }
+            
+            var finalJson = JsonConvert.SerializeObject(orders);
         }
 
         public void GenerateInserts()
@@ -107,6 +121,5 @@ namespace Neo4JPayloads.Business
 
             return JsonConvert.DeserializeObject<IEnumerable<T>>(file);
         }
-
     }
 }
