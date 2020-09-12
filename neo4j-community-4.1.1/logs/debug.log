@@ -1058,3 +1058,451 @@ RETURN n AS n
 2020-09-12 02:19:30.549+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 1164 seconds. Reason: NodesAllCardinality changed from 10.0 to 1120.0, which is a divergence of 0.9910714285714286 which is greater than threshold 0.5779106623071845. Query: CALL dbms.components()
   YIELD name, versions, edition
 RETURN name AS name, versions AS versions, edition AS edition
+2020-09-12 02:29:56.812+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] [neo4j] Checkpoint triggered by "Scheduled checkpoint for every 15 minutes threshold" @ txId: 53 checkpoint started...
+2020-09-12 02:29:57.047+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] [neo4j] Checkpoint triggered by "Scheduled checkpoint for every 15 minutes threshold" @ txId: 53 checkpoint completed in 233ms
+2020-09-12 02:29:57.047+0000 INFO [o.n.k.i.t.l.p.LogPruningImpl] [neo4j] No log version pruned. The strategy used was '1 days'. Last checkpoint was made in log version 0.
+2020-09-12 02:55:26.016+0000 WARN [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=1423, gcTime=0, gcCount=0}
+2020-09-12 03:22:20.048+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] [neo4j] Checkpoint triggered by "Scheduled checkpoint for every 15 minutes threshold" @ txId: 54 checkpoint started...
+2020-09-12 03:22:20.264+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] [neo4j] Checkpoint triggered by "Scheduled checkpoint for every 15 minutes threshold" @ txId: 54 checkpoint completed in 213ms
+2020-09-12 03:22:20.265+0000 INFO [o.n.k.i.t.l.p.LogPruningImpl] [neo4j] No log version pruned. The strategy used was '1 days'. Last checkpoint was made in log version 0.
+2020-09-12 03:22:24.955+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 3774 seconds. Reason: NodesAllCardinality changed from 1120.0 to 10.0, which is a divergence of 0.9910714285714286 which is greater than threshold 0.3804478960672531. Query: CALL dbms.components()
+  YIELD name, versions, edition
+RETURN name AS name, versions AS versions, edition AS edition
+2020-09-12 03:22:25.025+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 3938 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 1009.0 to 1.0, which is a divergence of 0.9990089197224975 which is greater than threshold 0.37247012715155225. Query: CALL db.labels()
+  YIELD label
+RETURN {name: "labels", data: COLLECT(label)[..1000]} AS result
+UNION ALL
+CALL db.relationshipTypes()
+  YIELD relationshipType
+RETURN {name: "relationshipTypes", data: COLLECT(relationshipType)[..1000]} AS result
+UNION ALL
+CALL db.propertyKeys()
+  YIELD propertyKey
+RETURN {name: "propertyKeys", data: COLLECT(propertyKey)[..1000]} AS result
+UNION ALL
+CALL dbms.functions()
+  YIELD name, signature, description
+RETURN {name: "functions", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+CALL dbms.procedures()
+  YIELD name, signature, description
+RETURN {name: "procedures", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+MATCH ()
+RETURN {name: "nodes", data: count(*)} AS result
+UNION ALL
+MATCH ()-->()
+RETURN {name: "relationships", data: count(*)} AS result
+2020-09-12 03:26:26.122+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 4230 seconds. Reason: NodesAllCardinality changed from 1094.0 to 10.0, which is a divergence of 0.9908592321755028 which is greater than threshold 0.3590166643307067. Query: MATCH (a)
+DETACH DELETE a
+2020-09-12 03:27:16.915+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 291 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 1.0 to 992.0, which is a divergence of 0.998991935483871 which is greater than threshold 0.699174600190462. Query: CALL db.labels()
+  YIELD label
+RETURN {name: "labels", data: COLLECT(label)[..1000]} AS result
+UNION ALL
+CALL db.relationshipTypes()
+  YIELD relationshipType
+RETURN {name: "relationshipTypes", data: COLLECT(relationshipType)[..1000]} AS result
+UNION ALL
+CALL db.propertyKeys()
+  YIELD propertyKey
+RETURN {name: "propertyKeys", data: COLLECT(propertyKey)[..1000]} AS result
+UNION ALL
+CALL dbms.functions()
+  YIELD name, signature, description
+RETURN {name: "functions", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+CALL dbms.procedures()
+  YIELD name, signature, description
+RETURN {name: "procedures", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+MATCH ()
+RETURN {name: "nodes", data: count(*)} AS result
+UNION ALL
+MATCH ()-->()
+RETURN {name: "relationships", data: count(*)} AS result
+2020-09-12 03:27:34.139+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 304 seconds. Reason: NodesAllCardinality changed from 10.0 to 1121.0, which is a divergence of 0.9910793933987511 which is greater than threshold 0.697059660853956. Query: CALL apoc.load.json("dataset/json_orders_relations.json")
+  YIELD value
+MERGE (pedido:Pedido {id: value.order_id})
+  ON CREATE   SET pedido.nome = value.order_id, pedido.status = value.order_status, pedido.order_purchase_timestamp = value.order_purchase_timestamp, pedido.order_approved_at = value.order_approved_at, pedido.order_delivered_carrier_date = value.order_delivered_carrier_date, pedido.order_delivered_customer_date = value.order_delivered_customer_date, pedido.order_estimated_delivery_date = value.order_estimated_delivery_date
+MERGE (cliente:Cliente {id: value.customer_id})
+  ON CREATE   SET cliente.nome = value.customer_id
+MERGE (regiao:Regiao {id: (value.Customer).customer_zip_code_prefix})
+  ON CREATE   SET regiao.nome = (value.Customer).customer_zip_code_prefix
+MERGE (cidade:Cidade {id: (value.Customer).customer_city})
+  ON CREATE   SET cidade.nome = (value.Customer).customer_city
+MERGE (estado:Estado {id: (value.Customer).customer_state})
+  ON CREATE   SET estado.nome = (value.Customer).customer_state
+WITH value AS value
+UNWIND value.OrderItems AS items
+MERGE (item_pedido:ItemPedido {id: (value.order_id + "-") + items.order_item_id})
+  ON CREATE   SET item_pedido.nome = (value.order_id + "-") + items.order_item_id, item_pedido.preco = items.price, item_pedido.shipping_limit_date = items.shipping_limit_date, item_pedido.frete = items.freight_value
+MERGE (produto:Produto {id: items.product_id})
+  ON CREATE   SET produto.nome = items.product_id, produto.product_name_lenght = (items.product).product_name_lenght, produto.product_description_lenght = (items.product).product_description_lenght, produto.product_photos_qty = (items.product).product_photos_qty, produto.product_weight_g = (items.product).product_weight_g, produto.product_length_cm = (items.product).product_length_cm, produto.product_height_cm = (items.product).product_height_cm, produto.product_width_cm = (items.product).product_width_cm
+MERGE (fornecedor:Fornecedor {id: items.seller_id})
+  ON CREATE   SET fornecedor.nome = items.seller_id
+MERGE (categoria:Categoria {id: (items.product).product_category_name})
+  ON CREATE   SET categoria.nome = (items.product).product_category_name
+MERGE (regiaoFornecedor:Regiao {id: items.seller_city})
+  ON CREATE   SET regiaoFornecedor.nome = items.seller_city
+MERGE (cliente)-[:COMPROU {id_pedido: value.order_id}]->(produto)
+MERGE (cliente)-[:MORA]->(regiao)
+MERGE (regiao)-[:EH_PARTE_DE]->(cidade)
+MERGE (cidade)-[:ESTA_LOCALIZADA]->(estado)
+MERGE (produto)-[:EH_PRODUZIDO]->(fornecedor)
+MERGE (produto)-[:EH_MONTADO]->(regiaoFornecedor)
+MERGE (fornecedor)-[:PERTENCE]->(regiaoFornecedor)
+MERGE (produto)-[:FOI_COMPRADO_POR]->(cliente)
+MERGE (produto)-[:POSSUI]->(categoria)
+MERGE (fornecedor)-[:FORNECE_CATEGORIA]->(categoria)
+2020-09-12 03:31:29.616+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 303 seconds. Reason: NodesAllCardinality changed from 10.0 to 1121.0, which is a divergence of 0.9910793933987511 which is greater than threshold 0.6972031240456934. Query: MATCH (a)
+DETACH DELETE a
+2020-09-12 03:31:41.678+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 264 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 992.0 to 1.0, which is a divergence of 0.998991935483871 which is greater than threshold 0.7037509881103425. Query: CALL db.labels()
+  YIELD label
+RETURN {name: "labels", data: COLLECT(label)[..1000]} AS result
+UNION ALL
+CALL db.relationshipTypes()
+  YIELD relationshipType
+RETURN {name: "relationshipTypes", data: COLLECT(relationshipType)[..1000]} AS result
+UNION ALL
+CALL db.propertyKeys()
+  YIELD propertyKey
+RETURN {name: "propertyKeys", data: COLLECT(propertyKey)[..1000]} AS result
+UNION ALL
+CALL dbms.functions()
+  YIELD name, signature, description
+RETURN {name: "functions", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+CALL dbms.procedures()
+  YIELD name, signature, description
+RETURN {name: "procedures", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+MATCH ()
+RETURN {name: "nodes", data: count(*)} AS result
+UNION ALL
+MATCH ()-->()
+RETURN {name: "relationships", data: count(*)} AS result
+2020-09-12 03:31:56.444+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 14 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 1.0 to 1071.0, which is a divergence of 0.9990662931839402 which is greater than threshold 0.7491088905159068. Query: CALL db.labels()
+  YIELD label
+RETURN {name: "labels", data: COLLECT(label)[..1000]} AS result
+UNION ALL
+CALL db.relationshipTypes()
+  YIELD relationshipType
+RETURN {name: "relationshipTypes", data: COLLECT(relationshipType)[..1000]} AS result
+UNION ALL
+CALL db.propertyKeys()
+  YIELD propertyKey
+RETURN {name: "propertyKeys", data: COLLECT(propertyKey)[..1000]} AS result
+UNION ALL
+CALL dbms.functions()
+  YIELD name, signature, description
+RETURN {name: "functions", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+CALL dbms.procedures()
+  YIELD name, signature, description
+RETURN {name: "procedures", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+MATCH ()
+RETURN {name: "nodes", data: count(*)} AS result
+UNION ALL
+MATCH ()-->()
+RETURN {name: "relationships", data: count(*)} AS result
+2020-09-12 03:32:13.595+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 5201 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 713.0 to 1071.0, which is a divergence of 0.33426704014939307 which is greater than threshold 0.32056762655538606. Query: MATCH (a)-[r]->(b)
+  WHERE id(a) IN $existingNodeIds AND id(b) IN $newNodeIds
+RETURN r AS r
+2020-09-12 03:35:21.821+0000 WARN [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=165, gcTime=190, gcCount=1}
+2020-09-12 03:37:20.566+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] [neo4j] Checkpoint triggered by "Scheduled checkpoint for every 15 minutes threshold" @ txId: 57 checkpoint started...
+2020-09-12 03:37:20.766+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] [neo4j] Checkpoint triggered by "Scheduled checkpoint for every 15 minutes threshold" @ txId: 57 checkpoint completed in 199ms
+2020-09-12 03:37:20.767+0000 INFO [o.n.k.i.t.l.p.LogPruningImpl] [neo4j] No log version pruned. The strategy used was '1 days'. Last checkpoint was made in log version 0.
+2020-09-12 04:05:25.558+0000 WARN [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=297, gcTime=366, gcCount=1}
+2020-09-12 04:45:11.844+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] [neo4j] Checkpoint triggered by "Scheduled checkpoint for every 15 minutes threshold" @ txId: 58 checkpoint started...
+2020-09-12 04:45:12.039+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] [neo4j] Checkpoint triggered by "Scheduled checkpoint for every 15 minutes threshold" @ txId: 58 checkpoint completed in 192ms
+2020-09-12 04:45:12.040+0000 INFO [o.n.k.i.t.l.p.LogPruningImpl] [neo4j] No log version pruned. The strategy used was '1 days'. Last checkpoint was made in log version 0.
+2020-09-12 04:45:27.350+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 4410 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 1071.0 to 1.0, which is a divergence of 0.9990662931839402 which is greater than threshold 0.3511916004895658. Query: CALL db.labels()
+  YIELD label
+RETURN {name: "labels", data: COLLECT(label)[..1000]} AS result
+UNION ALL
+CALL db.relationshipTypes()
+  YIELD relationshipType
+RETURN {name: "relationshipTypes", data: COLLECT(relationshipType)[..1000]} AS result
+UNION ALL
+CALL db.propertyKeys()
+  YIELD propertyKey
+RETURN {name: "propertyKeys", data: COLLECT(propertyKey)[..1000]} AS result
+UNION ALL
+CALL dbms.functions()
+  YIELD name, signature, description
+RETURN {name: "functions", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+CALL dbms.procedures()
+  YIELD name, signature, description
+RETURN {name: "procedures", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+MATCH ()
+RETURN {name: "nodes", data: count(*)} AS result
+UNION ALL
+MATCH ()-->()
+RETURN {name: "relationships", data: count(*)} AS result
+2020-09-12 04:46:09.442+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 42 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 1.0 to 805.0, which is a divergence of 0.9987577639751553 which is greater than threshold 0.7438486463194877. Query: CALL db.labels()
+  YIELD label
+RETURN {name: "labels", data: COLLECT(label)[..1000]} AS result
+UNION ALL
+CALL db.relationshipTypes()
+  YIELD relationshipType
+RETURN {name: "relationshipTypes", data: COLLECT(relationshipType)[..1000]} AS result
+UNION ALL
+CALL db.propertyKeys()
+  YIELD propertyKey
+RETURN {name: "propertyKeys", data: COLLECT(propertyKey)[..1000]} AS result
+UNION ALL
+CALL dbms.functions()
+  YIELD name, signature, description
+RETURN {name: "functions", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+CALL dbms.procedures()
+  YIELD name, signature, description
+RETURN {name: "procedures", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+MATCH ()
+RETURN {name: "nodes", data: count(*)} AS result
+UNION ALL
+MATCH ()-->()
+RETURN {name: "relationships", data: count(*)} AS result
+2020-09-12 04:46:15.412+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 12 seconds. Reason: NodesAllCardinality changed from 10.0 to 1120.0, which is a divergence of 0.9910714285714286 which is greater than threshold 0.7496067614708433. Query: CALL apoc.load.json("dataset/json_orders_relations.json")
+  YIELD value
+MERGE (pedido:Pedido {id: value.order_id})
+  ON CREATE   SET pedido.nome = value.order_id, pedido.status = value.order_status, pedido.order_purchase_timestamp = value.order_purchase_timestamp, pedido.order_approved_at = value.order_approved_at, pedido.order_delivered_carrier_date = value.order_delivered_carrier_date, pedido.order_delivered_customer_date = value.order_delivered_customer_date, pedido.order_estimated_delivery_date = value.order_estimated_delivery_date
+MERGE (cliente:Cliente {id: value.customer_id})
+  ON CREATE   SET cliente.nome = value.customer_id
+MERGE (regiao:Regiao {id: (value.Customer).customer_zip_code_prefix})
+  ON CREATE   SET regiao.nome = (value.Customer).customer_zip_code_prefix
+MERGE (cidade:Cidade {id: (value.Customer).customer_city})
+  ON CREATE   SET cidade.nome = (value.Customer).customer_city
+MERGE (estado:Estado {id: (value.Customer).customer_state})
+  ON CREATE   SET estado.nome = (value.Customer).customer_state
+WITH value AS value
+UNWIND value.OrderItems AS items
+MERGE (item_pedido:ItemPedido {id: (value.order_id + "-") + items.order_item_id})
+  ON CREATE   SET item_pedido.nome = (value.order_id + "-") + items.order_item_id, item_pedido.preco = items.price, item_pedido.shipping_limit_date = items.shipping_limit_date, item_pedido.frete = items.freight_value
+MERGE (produto:Produto {id: items.product_id})
+  ON CREATE   SET produto.nome = items.product_id, produto.product_name_lenght = (items.product).product_name_lenght, produto.product_description_lenght = (items.product).product_description_lenght, produto.product_photos_qty = (items.product).product_photos_qty, produto.product_weight_g = (items.product).product_weight_g, produto.product_length_cm = (items.product).product_length_cm, produto.product_height_cm = (items.product).product_height_cm, produto.product_width_cm = (items.product).product_width_cm
+MERGE (fornecedor:Fornecedor {id: items.seller_id})
+  ON CREATE   SET fornecedor.nome = items.seller_id
+MERGE (categoria:Categoria {id: (items.product).product_category_name})
+  ON CREATE   SET categoria.nome = (items.product).product_category_name
+MERGE (cliente)-[:COMPROU {id_pedido: value.order_id}]->(produto)
+MERGE (cliente)-[:MORA]->(regiao)
+MERGE (regiao)-[:EH_PARTE_DE]->(cidade)
+MERGE (cidade)-[:ESTA_LOCALIZADA]->(estado)
+MERGE (produto)-[:EH_PRODUZIDO]->(fornecedor)
+MERGE (produto)-[:FOI_COMPRADO_POR]->(cliente)
+MERGE (produto)-[:POSSUI]->(categoria)
+MERGE (fornecedor)-[:FORNECE_CATEGORIA]->(categoria)
+2020-09-12 04:46:27.061+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 5042 seconds. Reason: NodesAllCardinality changed from 10.0 to 1120.0, which is a divergence of 0.9910714285714286 which is greater than threshold 0.3263030914171639. Query: CALL dbms.components()
+  YIELD name, versions, edition
+RETURN name AS name, versions AS versions, edition AS edition
+2020-09-12 04:48:49.995+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 160 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 805.0 to 1.0, which is a divergence of 0.9987577639751553 which is greater than threshold 0.7219686017316814. Query: CALL db.labels()
+  YIELD label
+RETURN {name: "labels", data: COLLECT(label)[..1000]} AS result
+UNION ALL
+CALL db.relationshipTypes()
+  YIELD relationshipType
+RETURN {name: "relationshipTypes", data: COLLECT(relationshipType)[..1000]} AS result
+UNION ALL
+CALL db.propertyKeys()
+  YIELD propertyKey
+RETURN {name: "propertyKeys", data: COLLECT(propertyKey)[..1000]} AS result
+UNION ALL
+CALL dbms.functions()
+  YIELD name, signature, description
+RETURN {name: "functions", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+CALL dbms.procedures()
+  YIELD name, signature, description
+RETURN {name: "procedures", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+MATCH ()
+RETURN {name: "nodes", data: count(*)} AS result
+UNION ALL
+MATCH ()-->()
+RETURN {name: "relationships", data: count(*)} AS result
+2020-09-12 04:48:50.013+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 142 seconds. Reason: NodesAllCardinality changed from 1120.0 to 10.0, which is a divergence of 0.9910714285714286 which is greater than threshold 0.72512515581507. Query: CALL dbms.components()
+  YIELD name, versions, edition
+RETURN name AS name, versions AS versions, edition AS edition
+2020-09-12 04:48:52.612+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 16 seconds. Reason: NodesAllCardinality changed from 1120.0 to 10.0, which is a divergence of 0.9910714285714286 which is greater than threshold 0.7486710716965342. Query: CALL apoc.load.json("dataset/json_orders_relations.json")
+  YIELD value
+MERGE (pedido:Pedido {id: value.order_id})
+  ON CREATE   SET pedido.nome = value.order_id, pedido.status = value.order_status, pedido.order_purchase_timestamp = value.order_purchase_timestamp, pedido.order_approved_at = value.order_approved_at, pedido.order_delivered_carrier_date = value.order_delivered_carrier_date, pedido.order_delivered_customer_date = value.order_delivered_customer_date, pedido.order_estimated_delivery_date = value.order_estimated_delivery_date
+MERGE (cliente:Cliente {id: value.customer_id})
+  ON CREATE   SET cliente.nome = value.customer_id
+MERGE (regiao:Regiao {id: (value.Customer).customer_zip_code_prefix})
+  ON CREATE   SET regiao.nome = (value.Customer).customer_zip_code_prefix
+MERGE (cidade:Cidade {id: (value.Customer).customer_city})
+  ON CREATE   SET cidade.nome = (value.Customer).customer_city
+MERGE (estado:Estado {id: (value.Customer).customer_state})
+  ON CREATE   SET estado.nome = (value.Customer).customer_state
+MERGE (cliente)-[:COMPROU {id_pedido: value.order_id}]->(produto)
+MERGE (cliente)-[:MORA]->(regiao)
+MERGE (regiao)-[:EH_PARTE_DE]->(cidade)
+MERGE (cidade)-[:ESTA_LOCALIZADA]->(estado)
+2020-09-12 04:49:04.677+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 4611 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 1071.0 to 367.0, which is a divergence of 0.6573295985060691 which is greater than threshold 0.34289561841744315. Query: MATCH (a)-[r]->(b)
+  WHERE id(a) IN $existingNodeIds AND id(b) IN $newNodeIds
+RETURN r AS r
+2020-09-12 04:49:29.742+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 39 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 1.0 to 367.0, which is a divergence of 0.997275204359673 which is greater than threshold 0.7443019973886297. Query: CALL db.labels()
+  YIELD label
+RETURN {name: "labels", data: COLLECT(label)[..1000]} AS result
+UNION ALL
+CALL db.relationshipTypes()
+  YIELD relationshipType
+RETURN {name: "relationshipTypes", data: COLLECT(relationshipType)[..1000]} AS result
+UNION ALL
+CALL db.propertyKeys()
+  YIELD propertyKey
+RETURN {name: "propertyKeys", data: COLLECT(propertyKey)[..1000]} AS result
+UNION ALL
+CALL dbms.functions()
+  YIELD name, signature, description
+RETURN {name: "functions", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+CALL dbms.procedures()
+  YIELD name, signature, description
+RETURN {name: "procedures", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+MATCH ()
+RETURN {name: "nodes", data: count(*)} AS result
+UNION ALL
+MATCH ()-->()
+RETURN {name: "relationships", data: count(*)} AS result
+2020-09-12 04:49:52.488+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 4702 seconds. Reason: NodesAllCardinality changed from 1121.0 to 484.0, which is a divergence of 0.568242640499554 which is greater than threshold 0.3392221618322683. Query: MATCH (a)
+DETACH DELETE a
+2020-09-12 04:49:57.216+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 376 seconds. Reason: NodesAllCardinality changed from 1233.0 to 10.0, which is a divergence of 0.991889699918897 which is greater than threshold 0.6852356552349012. Query: MATCH (reg:Regiao)
+  WHERE reg.id = "13068"
+RETURN reg AS reg
+  LIMIT 25
+2020-09-12 04:50:09.753+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 39 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 367.0 to 1.0, which is a divergence of 0.997275204359673 which is greater than threshold 0.7442469181411708. Query: CALL db.labels()
+  YIELD label
+RETURN {name: "labels", data: COLLECT(label)[..1000]} AS result
+UNION ALL
+CALL db.relationshipTypes()
+  YIELD relationshipType
+RETURN {name: "relationshipTypes", data: COLLECT(relationshipType)[..1000]} AS result
+UNION ALL
+CALL db.propertyKeys()
+  YIELD propertyKey
+RETURN {name: "propertyKeys", data: COLLECT(propertyKey)[..1000]} AS result
+UNION ALL
+CALL dbms.functions()
+  YIELD name, signature, description
+RETURN {name: "functions", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+CALL dbms.procedures()
+  YIELD name, signature, description
+RETURN {name: "procedures", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+MATCH ()
+RETURN {name: "nodes", data: count(*)} AS result
+UNION ALL
+MATCH ()-->()
+RETURN {name: "relationships", data: count(*)} AS result
+2020-09-12 04:50:19.036+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 21 seconds. Reason: NodesAllCardinality changed from 10.0 to 1233.0, which is a divergence of 0.991889699918897 which is greater than threshold 0.7477202102806513. Query: MATCH (reg:Regiao)
+  WHERE reg.id = "13068"
+RETURN reg AS reg
+  LIMIT 25
+2020-09-12 04:50:36.846+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 17 seconds. Reason: NodesAllCardinality changed from 1233.0 to 10.0, which is a divergence of 0.991889699918897 which is greater than threshold 0.7484925407770951. Query: MATCH (reg:Regiao)
+  WHERE reg.id = "13068"
+RETURN reg AS reg
+  LIMIT 25
+2020-09-12 04:52:05.904+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 116 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 1.0 to 369.0, which is a divergence of 0.997289972899729 which is greater than threshold 0.7300120864962601. Query: CALL db.labels()
+  YIELD label
+RETURN {name: "labels", data: COLLECT(label)[..1000]} AS result
+UNION ALL
+CALL db.relationshipTypes()
+  YIELD relationshipType
+RETURN {name: "relationshipTypes", data: COLLECT(relationshipType)[..1000]} AS result
+UNION ALL
+CALL db.propertyKeys()
+  YIELD propertyKey
+RETURN {name: "propertyKeys", data: COLLECT(propertyKey)[..1000]} AS result
+UNION ALL
+CALL dbms.functions()
+  YIELD name, signature, description
+RETURN {name: "functions", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+CALL dbms.procedures()
+  YIELD name, signature, description
+RETURN {name: "procedures", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+MATCH ()
+RETURN {name: "nodes", data: count(*)} AS result
+UNION ALL
+MATCH ()-->()
+RETURN {name: "relationships", data: count(*)} AS result
+2020-09-12 04:52:09.973+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 93 seconds. Reason: NodesAllCardinality changed from 10.0 to 825.0, which is a divergence of 0.9878787878787879 which is greater than threshold 0.7342516288202071. Query: MATCH (reg:Regiao)
+  WHERE reg.id = "13068"
+RETURN reg AS reg
+  LIMIT 25
+2020-09-12 04:55:28.398+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 203 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,Some(RelTypeId(6)),None) changed from 1.0 to 177.0, which is a divergence of 0.9943502824858758 which is greater than threshold 0.7143447399924101. Query: CALL apoc.load.json("dataset/json_orders_relations.json")
+  YIELD value
+UNWIND value.OrderItems AS items
+MERGE (pedido:Pedido {id: value.order_id})
+  ON CREATE   SET pedido.nome = value.order_id, pedido.status = value.order_status, pedido.order_purchase_timestamp = value.order_purchase_timestamp, pedido.order_approved_at = value.order_approved_at, pedido.order_delivered_carrier_date = value.order_delivered_carrier_date, pedido.order_delivered_customer_date = value.order_delivered_customer_date, pedido.order_estimated_delivery_date = value.order_estimated_delivery_date
+MERGE (cliente:Cliente {id: value.customer_id})
+  ON CREATE   SET cliente.nome = value.customer_id
+MERGE (regiao:Regiao {id: (value.Customer).customer_zip_code_prefix})
+  ON CREATE   SET regiao.nome = (value.Customer).customer_zip_code_prefix
+MERGE (cidade:Cidade {id: (value.Customer).customer_city})
+  ON CREATE   SET cidade.nome = (value.Customer).customer_city
+MERGE (estado:Estado {id: (value.Customer).customer_state})
+  ON CREATE   SET estado.nome = (value.Customer).customer_state
+MERGE (item_pedido:ItemPedido {id: (value.order_id + "-") + items.order_item_id})
+  ON CREATE   SET item_pedido.nome = (value.order_id + "-") + items.order_item_id, item_pedido.preco = items.price, item_pedido.shipping_limit_date = items.shipping_limit_date, item_pedido.frete = items.freight_value
+MERGE (produto:Produto {id: items.product_id})
+  ON CREATE   SET produto.nome = items.product_id, produto.product_name_lenght = (items.product).product_name_lenght, produto.product_description_lenght = (items.product).product_description_lenght, produto.product_photos_qty = (items.product).product_photos_qty, produto.product_weight_g = (items.product).product_weight_g, produto.product_length_cm = (items.product).product_length_cm, produto.product_height_cm = (items.product).product_height_cm, produto.product_width_cm = (items.product).product_width_cm
+MERGE (fornecedor:Fornecedor {id: items.seller_id})
+  ON CREATE   SET fornecedor.nome = items.seller_id
+MERGE (categoria:Categoria {id: (items.product).product_category_name})
+  ON CREATE   SET categoria.nome = (items.product).product_category_name
+MERGE (regiaoFornecedor:Regiao {id: COALESCE((items.seller).seller_zip_code_prefix, "UNKNOWN")})
+  ON CREATE   SET regiaoFornecedor.nome = COALESCE((items.seller).seller_zip_code_prefix, "UNKNOWN")
+MERGE (cidadeFornecedor:Cidade {id: COALESCE((items.seller).seller_city, "UNKNOWN")})
+  ON CREATE   SET cidadeFornecedor.nome = COALESCE((items.seller).seller_city, "UNKNOWN")
+MERGE (cliente)-[:COMPROU {id_pedido: value.order_id}]->(produto)
+MERGE (cliente)-[:MORA]->(regiao)
+MERGE (regiao)-[:EH_PARTE_DE]->(cidade)
+MERGE (cidade)-[:ESTA_LOCALIZADA]->(estado)
+2020-09-12 05:00:12.278+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] [neo4j] Checkpoint triggered by "Scheduled checkpoint for every 15 minutes threshold" @ txId: 67 checkpoint started...
+2020-09-12 05:00:12.457+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] [neo4j] Checkpoint triggered by "Scheduled checkpoint for every 15 minutes threshold" @ txId: 67 checkpoint completed in 176ms
+2020-09-12 05:00:12.457+0000 INFO [o.n.k.i.t.l.p.LogPruningImpl] [neo4j] No log version pruned. The strategy used was '1 days'. Last checkpoint was made in log version 0.
+2020-09-12 06:19:24.471+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 5371 seconds. Reason: NodesAllCardinality changed from 484.0 to 825.0, which is a divergence of 0.41333333333333333 which is greater than threshold 0.31465035275856174. Query: MATCH (a)
+DETACH DELETE a
+2020-09-12 06:19:34.001+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] [neo4j] Checkpoint triggered by "Scheduled checkpoint for every 15 minutes threshold" @ txId: 70 checkpoint started...
+2020-09-12 06:19:34.250+0000 INFO [o.n.k.i.t.l.c.CheckPointerImpl] [neo4j] Checkpoint triggered by "Scheduled checkpoint for every 15 minutes threshold" @ txId: 70 checkpoint completed in 248ms
+2020-09-12 06:19:34.252+0000 INFO [o.n.k.i.t.l.p.LogPruningImpl] [neo4j] No log version pruned. The strategy used was '1 days'. Last checkpoint was made in log version 0.
+2020-09-12 06:19:37.436+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 5251 seconds. Reason: CardinalityByLabelsAndRelationshipType(None,None,None) changed from 369.0 to 1146.0, which is a divergence of 0.6780104712041884 which is greater than threshold 0.3188091715960729. Query: CALL db.labels()
+  YIELD label
+RETURN {name: "labels", data: COLLECT(label)[..1000]} AS result
+UNION ALL
+CALL db.relationshipTypes()
+  YIELD relationshipType
+RETURN {name: "relationshipTypes", data: COLLECT(relationshipType)[..1000]} AS result
+UNION ALL
+CALL db.propertyKeys()
+  YIELD propertyKey
+RETURN {name: "propertyKeys", data: COLLECT(propertyKey)[..1000]} AS result
+UNION ALL
+CALL dbms.functions()
+  YIELD name, signature, description
+RETURN {name: "functions", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+CALL dbms.procedures()
+  YIELD name, signature, description
+RETURN {name: "procedures", data: collect({name: name, signature: signature, description: description})} AS result
+UNION ALL
+MATCH ()
+RETURN {name: "nodes", data: count(*)} AS result
+UNION ALL
+MATCH ()-->()
+RETURN {name: "relationships", data: count(*)} AS result
+2020-09-12 06:19:59.248+0000 INFO [o.n.c.i.ExecutionEngine] [neo4j] Discarded stale query from the query cache after 5469 seconds. Reason: NodesAllCardinality changed from 10.0 to 825.0, which is a divergence of 0.9878787878787879 which is greater than threshold 0.31137215664934187. Query: CALL dbms.components()
+  YIELD name, versions, edition
+RETURN name AS name, versions AS versions, edition AS edition
+2020-09-12 06:21:19.368+0000 WARN [o.n.k.i.c.VmPauseMonitorComponent] Detected VM stop-the-world pause: {pauseTime=150, gcTime=147, gcCount=1}
