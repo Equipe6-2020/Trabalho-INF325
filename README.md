@@ -10,14 +10,17 @@ Trabalho de conclusão da disciplina - Modelagem e Projeto de Bancos de Dados (2
 - Marcos Vinícius Piaia 
 - Tatiany Fermino Rodrigues de Oliveira
 
+## Ambiente
+
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Equipe6-2020/Trabalho-INF325/master)
 
+### Este repositório
 Estrutura de pastas do repositório:
 ~~~
-├── binder
+├── binder  <- dados para a construção do ambiente
 │    ├── apt.txt
 │    └── requirements.txt
-├── dataset
+├── dataset  <- datasets usadas
 │    ├── olist_customers_dataset.json
 │    ├── olist_geolocation_dataset.json
 │    ├── olist_order_items_dataset.json
@@ -26,7 +29,7 @@ Estrutura de pastas do repositório:
 │    ├── olist_products_dataset.json
 │    ├── olist_sellers_dataset.json
 │    └── product_category_name_translation.json
-├── notebooks
+├── notebooks  <- configurações e consultas
 │    ├── 0. README.ipynb
 │    ├── 1. MongoSetup.ipynb
 │    ├── 2. Neo4jSetup.ipynb
