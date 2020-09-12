@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Neo4JPayloads.Models
 {
@@ -9,7 +10,7 @@ namespace Neo4JPayloads.Models
         public string customer_id { get; set; }
         public Customer Customer { get; set; }
         public string order_status { get; set; }
-        public string order_purchase_timestamp { get; set; }
+        public DateTime order_purchase_timestamp { get; set; }
         public string order_approved_at { get; set; }
         public string order_delivered_carrier_date { get; set; }
         public string order_delivered_customer_date { get; set; }

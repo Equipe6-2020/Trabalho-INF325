@@ -20,7 +20,14 @@ namespace Neo4JPayloads.Business
 
         public void Starter()
         {
-            var orders = GetDataJson<Order>(PathOrders).Take(LimitData).ToList();
+            var orders = GetDataJson<Order>(PathOrders).Where(x =>
+            {
+                var month = x.order_purchase_timestamp.Month;
+                var year = x.order_purchase_timestamp.Year;
+
+                return month == 12 && year == 2017;
+            }).ToList();
+
             var orderIds = orders.Select(x => x.order_id);
             var customerIds = orders.Select(x => x.customer_id);
 
@@ -37,8 +44,8 @@ namespace Neo4JPayloads.Business
                 .GroupBy(x => new { x.seller_zip_code_prefix, x.seller_city, x.seller_id })
                 .Select(x => new Region
                 {
-                    seller_zip_code_prefix = x.Key.seller_zip_code_prefix, 
-                    seller_city = x.Key.seller_city, 
+                    seller_zip_code_prefix = x.Key.seller_zip_code_prefix,
+                    seller_city = x.Key.seller_city,
                     seller_id = x.Key.seller_id
                 })
                 .ToList();
@@ -54,9 +61,9 @@ namespace Neo4JPayloads.Business
                 order.Customer = customers.FirstOrDefault(x => x.customer_id == order.customer_id);
                 order.OrderItems = orderItems.Where(x => x.order_id == order.order_id);
             }
-            
+
             var finalJson = JsonConvert.SerializeObject(orders);
-            File.WriteAllText(@"C:\Users\Mateus\Documents\data_total.json", finalJson);
+            File.WriteAllText(@"C:\Users\Mateus\Documents\json_with_relations.json", finalJson);
         }
 
         public void GenerateInserts()
