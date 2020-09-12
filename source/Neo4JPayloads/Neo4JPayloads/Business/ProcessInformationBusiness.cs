@@ -10,7 +10,7 @@ namespace Neo4JPayloads.Business
 {
     public class ProcessInformationBusiness
     {
-        private const int LimitData = 100;
+        private const int LimitData = 100000;
 
         private const string PathProducts = @"C:\scripts\olist_products_dataset.json";
         private const string PathOrderItems = @"C:\scripts\olist_order_items_dataset.json";
@@ -56,11 +56,12 @@ namespace Neo4JPayloads.Business
             }
             
             var finalJson = JsonConvert.SerializeObject(orders);
+            File.WriteAllText(@"C:\Users\Mateus\Documents\data_total.json", finalJson);
         }
 
         public void GenerateInserts()
         {
-            var products = GetDataJson<Product>(PathProducts).Take(CountData).ToList();
+            var products = GetDataJson<Product>(PathProducts).Take(LimitData).ToList();
             var categories = products.Select(x => x.product_category_name).Distinct();
 
             var productIds = products.Select(x => x.product_id);
