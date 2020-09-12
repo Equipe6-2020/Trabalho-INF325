@@ -35,5 +35,7 @@ Estrutura de pastas do repositório:
 │    ├── 2. Neo4jSetup.ipynb
 │    ├── 3. MongoEnv.ipynb
 │    └── 4. Neo4jEnv.ipynb
+├── resources
+│    └── Neo4JPayloads <- código para a geração de um único json
 └── README.md
 ~~~
