@@ -1,4 +1,4 @@
-# Queries Neo4J
+# Loading dos dados para o banco Neo4J
 
 - DELETE ALL nodes
 ```cypher
